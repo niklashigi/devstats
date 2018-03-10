@@ -1,0 +1,7 @@
+{
+  "extends": ["tslint-xo/space"],
+  "rules": {
+    "no-unused-expression": false,
+    "radix": false
+  }
+}

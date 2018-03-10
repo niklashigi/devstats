@@ -1,0 +1,9 @@
+{
+  "eslint.enable": false,
+  "files.exclude": {
+    ".git": true,
+    ".vscode": true,
+    "dist": true,
+    "node_modules": true
+  }
+}
