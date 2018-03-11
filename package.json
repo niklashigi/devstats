@@ -1,7 +1,7 @@
 {
   "name": "devstats",
   "version": "1.0.0",
-  "description": "",
+  "description": "Statistics for developers.",
   "main": "index.js",
   "author": "Niklas Higi <niklas@shroudedcode.com> (https://shroudedcode.com/)",
   "license": "MIT",
@@ -12,6 +12,7 @@
     "build": "tsc"
   },
   "devDependencies": {
+    "@types/fs-extra": "^5.0.1",
     "@types/jsdom": "^11.0.4",
     "@types/node": "^9.4.7",
     "@types/node-fetch": "^1.6.7",
@@ -23,7 +24,6 @@
     "typescript": "^2.7.2"
   },
   "dependencies": {
-    "@types/fs-extra": "^5.0.1",
     "chalk": "^2.3.2",
     "fs-extra": "^5.0.0",
     "jsdom": "^11.6.2",
