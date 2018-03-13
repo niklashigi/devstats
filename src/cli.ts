@@ -1,6 +1,5 @@
 import * as moment from 'moment';
 import chalk from 'chalk';
-import * as readline from 'readline';
 
 import {getDayIndex, parseDayIndex} from './time';
 import {Account} from './accounts/account';
@@ -43,15 +42,13 @@ const accounts: Account[] = [
   new GitHubAccount('sindresorhus')
 ];
 
-stdout.write('\n'.repeat(7));
+T.render('\n'.repeat(7));
 
 function printDailyReport() {
   const dayMoment = parseDayIndex(dayIndex);
   const dayString = dayMoment.format('MMMM Do, YYYY');
 
-  readline.moveCursor(stdout, 0, -7);
-  readline.clearScreenDown(stdout);
-  stdout.write(chalk`
+  T.render(chalk`
   Fetching statistics for {bold ${dayString}} ...
 
   {inverse  } {gray.inverse              }  {gray ...}
@@ -61,14 +58,14 @@ function printDailyReport() {
 `);
 
   Promise.all(accounts.map(account => account.getReport(dayIndex))).then(reports => {
-    readline.moveCursor(stdout, 0, -7);
-    readline.clearScreenDown(stdout);
-    stdout.write(chalk`\n{blue   Daily report for {bold ${dayString}}}\n`);
-    stdout.write('\n');
+    let output = '';
+    output += chalk`\n{blue   Daily report for {bold ${dayString}}}\n`;
+    output += '\n';
     for (const report of reports) {
-      stdout.write(chalk`  {inverse ${report.theme(' ')}} ${report.theme(report.title.padEnd(15))}{bold ${report.value + ''}} ${report.statistic}\n`);
+      output += chalk`  {inverse ${report.theme(' ')}} ${report.theme(report.title.padEnd(15))}{bold ${report.value + ''}} ${report.statistic}\n`;
     }
-    stdout.write('\n');
+    output += '\n';
+    T.render(output);
   });
 }
 
