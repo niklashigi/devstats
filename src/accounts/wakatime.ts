@@ -26,6 +26,9 @@ const formatMoment = (moment: M.Moment) => moment.format('YYYY-MM-DD');
 export class WakaTimeAccount implements Account {
   constructor(private userName: string) {}
 
+  title = 'WakaTime';
+  theme = chalk.cyan;
+
   async getReport(day: number) {
     const apiKey = await this.findApiKey();
 

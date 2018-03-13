@@ -3,6 +3,7 @@ import chalk from 'chalk';
 
 import {getDayIndex, parseDayIndex} from './time';
 import {Account} from './accounts/account';
+import {Report} from './report';
 
 import {GitHubAccount} from './accounts/github';
 import {StackOverflowAccount} from './accounts/stackoverflow';
@@ -12,8 +13,12 @@ import args from './args';
 import * as T from './libs/terminal';
 
 let dayIndex = getDayIndex(moment());
+let dayMoment = parseDayIndex(dayIndex);
+let dayString = dayMoment.format('MMMM Do, YYYY');
 
-const {stdin, stdout} = process;
+const reports: Map<Account, Report> = new Map();
+
+const {stdin} = process;
 if (args.interactive) {
   T.interactify();
 }
@@ -45,28 +50,34 @@ const accounts: Account[] = [
 T.render('\n'.repeat(7));
 
 function printDailyReport() {
-  const dayMoment = parseDayIndex(dayIndex);
-  const dayString = dayMoment.format('MMMM Do, YYYY');
+  dayMoment = parseDayIndex(dayIndex);
+  dayString = dayMoment.format('MMMM Do, YYYY');
 
-  T.render(chalk`
-  Fetching statistics for {bold ${dayString}} ...
+  reports.clear();
+  render();
 
-  {inverse  } {gray.inverse              }  {gray ...}
-  {inverse  } {gray.inverse         }       {gray ...}
-  {inverse  } {gray.inverse       }         {gray ...}
+  for (const account of accounts) {
+    account.getReport(dayIndex).then(report => {
+      reports.set(account, report);
+      render();
+    });
+  }
+}
 
-`);
-
-  Promise.all(accounts.map(account => account.getReport(dayIndex))).then(reports => {
-    let output = '';
-    output += chalk`\n{blue   Daily report for {bold ${dayString}}}\n`;
-    output += '\n';
-    for (const report of reports) {
-      output += chalk`  {inverse ${report.theme(' ')}} ${report.theme(report.title.padEnd(15))}{bold ${report.value + ''}} ${report.statistic}\n`;
+function render() {
+  let output = '';
+  output += chalk`\n{blue   Daily report for {bold ${dayString}}}\n`;
+  output += '\n';
+  for (const account of accounts) {
+    if (reports.has(account)) {
+      const report = reports.get(account) as Report;
+      output += chalk`  {inverse ${report.theme(' ')}} ${report.theme(account.title.padEnd(15))}{bold ${report.value + ''}} ${report.statistic}\n`;
+    } else {
+      output += chalk`  {gray.inverse  } {gray.dim ${account.title.padEnd(15)}}{dim Loading ...}\n`;
     }
-    output += '\n';
-    T.render(output);
-  });
+  }
+  output += '\n';
+  T.render(output);
 }
 
 printDailyReport();

@@ -10,6 +10,9 @@ const BASE_URL = 'https://github.com';
 export class GitHubAccount implements Account {
   constructor(private userName: string) {}
 
+  title = 'GitHub';
+  theme = chalk.greenBright;
+
   async getReport(day: number) {
     const dayMoment = parseDayIndex(day);
 

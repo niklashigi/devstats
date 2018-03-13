@@ -16,6 +16,9 @@ interface Response {
 export class StackOverflowAccount implements Account {
   constructor(private userId: number) {}
 
+  title = 'StackOverflow';
+  theme = chalk.yellow;
+
   async getReport(day: number) {
     const dayMoment = parseDayIndex(day);
 
