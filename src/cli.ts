@@ -76,6 +76,11 @@ function render() {
       output += chalk`  {gray.inverse  } {gray.dim ${account.title.padEnd(15)}}{dim Loading ...}\n`;
     }
   }
+  if (args.interactive) {
+    output += chalk`
+  {green {dim [}{bold ←} Previous day{dim ]} {dim [}{bold →} Next day{dim ]}} {red {dim [}{bold Q} Quit{dim ]}}
+`;
+  }
   output += '\n';
   T.render(output);
 }
