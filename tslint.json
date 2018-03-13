@@ -1,6 +1,7 @@
 {
   "extends": ["tslint-xo/space"],
   "rules": {
+    "only-arrow-functions": false,
     "no-unused-expression": false,
     "radix": false
   }
