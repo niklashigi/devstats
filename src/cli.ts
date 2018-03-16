@@ -27,12 +27,12 @@ if (args.interactive) {
   stdin.on('data', (key: string) => {
     if (['\u0003', 'x', 'q'].includes(key.toLowerCase())) {
       process.exit();
-    } else if (key.startsWith('\u001b\u005b') && key.length === 3) {
-      if (key[2] === '\u0044') {
+    } else if (key.startsWith('\u001b[') && key.length === 3) {
+      if (key[2] === 'D') {
         // Left arrow key
         dayIndex--;
         printDailyReport();
-      } else if (key[2] === '\u0043') {
+      } else if (key[2] === 'C') {
         // Right arrow key
         dayIndex++;
         printDailyReport();
