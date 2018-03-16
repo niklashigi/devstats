@@ -33,7 +33,6 @@ export class GitHubAccount implements Account {
 
     return {
       theme: chalk.greenBright,
-      title: 'GitHub',
       statistic: 'contributions made',
       value
     };

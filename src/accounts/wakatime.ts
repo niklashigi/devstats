@@ -34,7 +34,6 @@ export class WakaTimeAccount implements Account {
 
     const report: Report = {
       theme: chalk.cyan,
-      title: 'WakaTime',
       statistic: 'spent coding',
       value: 'no time'
     };

@@ -37,7 +37,6 @@ export class StackOverflowAccount implements Account {
 
     return {
       theme: chalk.yellow,
-      title: 'StackOverflow',
       statistic: 'reputation earned',
       value
     };
