@@ -78,7 +78,7 @@ function render() {
   }
   if (args.interactive) {
     output += chalk`
-  {green {dim [}{bold ←} Previous day{dim ]} {dim [}{bold →} Next day{dim ]}} {red {dim [}{bold Q} Quit{dim ]}}
+  {blue {dim [}{bold ←} Previous day{dim ]} {dim [}{bold →} Next day{dim ]} {dim [}{bold Q} Quit{dim ]}}
 `;
   }
   output += '\n';
