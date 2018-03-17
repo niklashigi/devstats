@@ -1,6 +1,1 @@
-export interface Report {
-  theme(str: string): string;
-  statistic: string;
-  value: string | number;
-  errored?: boolean;
-}
+export type Report = number | string | null;

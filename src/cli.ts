@@ -71,7 +71,7 @@ function render() {
   for (const account of accounts) {
     if (reports.has(account)) {
       const report = reports.get(account) as Report;
-      output += chalk`  {inverse ${report.theme(' ')}} ${report.theme(account.title.padEnd(15))}{bold ${report.value + ''}} ${report.statistic}\n`;
+      output += chalk`  {inverse ${account.theme(' ')}} ${account.theme(account.title.padEnd(15))}{bold ${report + ''}} ${account.statistic}\n`;
     } else {
       output += chalk`  {gray.inverse  } {gray.dim ${account.title.padEnd(15)}}{dim Loading ...}\n`;
     }

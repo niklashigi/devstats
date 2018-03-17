@@ -11,6 +11,7 @@ export class GitHubAccount implements Account {
   constructor(private userName: string) {}
 
   title = 'GitHub';
+  statistic = 'contributions made';
   theme = chalk.greenBright;
 
   async getReport(day: number) {
@@ -31,10 +32,6 @@ export class GitHubAccount implements Account {
       }
     }
 
-    return {
-      theme: chalk.greenBright,
-      statistic: 'contributions made',
-      value
-    };
+    return value;
   }
 }

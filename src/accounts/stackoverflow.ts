@@ -17,6 +17,7 @@ export class StackOverflowAccount implements Account {
   constructor(private userId: number) {}
 
   title = 'StackOverflow';
+  statistic = 'reputation earned';
   theme = chalk.yellow;
 
   async getReport(day: number) {
@@ -32,13 +33,7 @@ export class StackOverflowAccount implements Account {
     const response: Response = (await (await fetch(url)).json());
     const changes = response.items;
 
-    const value = changes.map(item => item.reputation_change || 0)
+    return changes.map(item => item.reputation_change || 0)
       .reduce((sum, add) => sum + add, 0);
-
-    return {
-      theme: chalk.yellow,
-      statistic: 'reputation earned',
-      value
-    };
   }
 }

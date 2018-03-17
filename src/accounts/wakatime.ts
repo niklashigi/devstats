@@ -8,7 +8,6 @@ import * as M from 'moment';
 import chalk from 'chalk';
 
 import {Account} from './account';
-import {Report} from '../report';
 import {parseDayIndex} from '../time';
 
 const BASE_URL = 'https://wakatime.com/api/v1';
@@ -27,16 +26,11 @@ export class WakaTimeAccount implements Account {
   constructor(private userName: string) {}
 
   title = 'WakaTime';
+  statistic = 'spent coding';
   theme = chalk.cyan;
 
   async getReport(day: number) {
     const apiKey = await this.findApiKey();
-
-    const report: Report = {
-      theme: chalk.cyan,
-      statistic: 'spent coding',
-      value: 'no time'
-    };
 
     if (apiKey) {
       const dayMoment = parseDayIndex(day);
@@ -49,15 +43,14 @@ export class WakaTimeAccount implements Account {
         const response: Response = (await (await fetch(url)).json());
         const seconds = response.data[0].grand_total.total_seconds;
         if (seconds > 0) {
-          const value = M.duration(seconds, 'seconds').humanize();
-          report.value = value;
+          return M.duration(seconds, 'seconds').humanize();
         }
       } catch {
-        report.errored = true;
+        return null;
       }
     }
 
-    return report;
+    return 'no time';
   }
 
   async findApiKey() {
