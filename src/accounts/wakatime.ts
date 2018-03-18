@@ -29,28 +29,37 @@ export class WakaTimeAccount implements Account {
   statistic = 'spent coding';
   theme = chalk.cyan;
 
-  async getReport(day: number) {
-    const apiKey = await this.findApiKey();
+  apiKey: string | null | undefined;
+  durations: Map<number, string> = new Map();
 
-    if (apiKey) {
-      const dayMoment = parseDayIndex(day);
-      const url = `${BASE_URL}/users/${this.userName}/summaries?` + querify({
-        start: formatMoment(dayMoment),
-        end: formatMoment(dayMoment.add(1, 'day')),
-        api_key: apiKey
-      });
-      try {
-        const response: Response = (await (await fetch(url)).json());
-        const seconds = response.data[0].grand_total.total_seconds;
-        if (seconds > 0) {
-          return M.duration(seconds, 'seconds').humanize();
-        }
-      } catch {
-        return null;
-      }
+  async getReport(day: number) {
+    if (this.durations.has(day)) {
+      return this.durations.get(day) as string;
     }
 
-    return 'no time';
+    this.apiKey = await this.findApiKey();
+    if (!this.apiKey) {
+      return null;
+    }
+
+    const dayMoment = parseDayIndex(day);
+    const url = `${BASE_URL}/users/${this.userName}/summaries?` + querify({
+      start: formatMoment(dayMoment),
+      end: formatMoment(dayMoment.add(1, 'day')),
+      api_key: this.apiKey
+    });
+    try {
+      const response: Response = (await (await fetch(url)).json());
+      const seconds = response.data[0].grand_total.total_seconds;
+      const duration = seconds > 0 ? M.duration(seconds, 'seconds').humanize() : 'no time';
+      this.durations.set(day, duration);
+
+      return duration;
+    } catch {
+      // `null` will be returned below
+    }
+
+    return null;
   }
 
   async findApiKey() {
