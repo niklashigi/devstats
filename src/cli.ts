@@ -83,7 +83,7 @@ function render() {
   }
   if (args.interactive) {
     output += chalk`
-  {blue {dim [}{bold ←} Previous day{dim ]} {dim [}{bold →} Next day{dim ]} {dim [}{bold Q} Quit{dim ]}}
+  {blue {dim [}{bold ←} Previous day{dim ]} ${(dayIndex < todayIndex ? chalk.blue : chalk.gray)(chalk`{dim [}{bold →} Next day{dim ]}`)} {dim [}{bold Q} Quit{dim ]}}
 `;
   }
   output += '\n';
