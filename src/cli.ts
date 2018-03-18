@@ -12,7 +12,8 @@ import {WakaTimeAccount} from './accounts/wakatime';
 import args from './args';
 import * as T from './libs/terminal';
 
-let dayIndex = getDayIndex(moment());
+const todayIndex = getDayIndex(moment());
+let dayIndex = todayIndex;
 let dayMoment = parseDayIndex(dayIndex);
 let dayString = dayMoment.format('MMMM Do, YYYY');
 
@@ -32,7 +33,7 @@ if (args.interactive) {
         // Left arrow key
         dayIndex--;
         printDailyReport();
-      } else if (key[2] === 'C') {
+      } else if (key[2] === 'C' && dayIndex < todayIndex) {
         // Right arrow key
         dayIndex++;
         printDailyReport();
