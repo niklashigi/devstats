@@ -20,7 +20,13 @@ export class StackOverflowAccount implements Account {
   statistic = 'reputation earned';
   theme = chalk.yellow;
 
+  reputation: Map<number, number> = new Map();
+
   async getReport(day: number) {
+    if (this.reputation.has(day)) {
+      return this.reputation.get(day) as number;
+    }
+
     const dayMoment = parseDayIndex(day);
 
     const url = `${BASE_URL}/users/${this.userId}/reputation?` + querify({
@@ -33,9 +39,11 @@ export class StackOverflowAccount implements Account {
     try {
       const response: Response = (await (await fetch(url)).json());
       const changes = response.items;
-
-      return changes.map(item => item.reputation_change || 0)
+      const report = changes.map(item => item.reputation_change || 0)
         .reduce((sum, add) => sum + add, 0);
+      this.reputation.set(day, report);
+
+      return report;
     } catch {
       return null;
     }
