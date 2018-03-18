@@ -65,6 +65,10 @@ function printDailyReport() {
   }
 }
 
+const renderReport = ({statistic}: Account, report: Report) =>
+  report !== undefined && report !== null ?
+  chalk`{bold ${report + ''}} ${statistic}` : chalk.red('An error occurred.');
+
 function render() {
   let output = '';
   output += chalk`\n{blue   Daily report for {bold ${dayString}}}\n`;
@@ -72,7 +76,7 @@ function render() {
   for (const account of accounts) {
     if (reports.has(account)) {
       const report = reports.get(account) as Report;
-      output += chalk`  {inverse ${account.theme(' ')}} ${account.theme(account.title.padEnd(15))}{bold ${report + ''}} ${account.statistic}\n`;
+      output += chalk`  {inverse ${account.theme(' ')}} ${account.theme(account.title.padEnd(15))}${renderReport(account, report)}\n`;
     } else {
       output += chalk`  {gray.inverse  } {gray.dim ${account.title.padEnd(15)}}{dim Loading ...}\n`;
     }

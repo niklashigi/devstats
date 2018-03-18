@@ -30,10 +30,14 @@ export class StackOverflowAccount implements Account {
       pagesize: 100
     });
 
-    const response: Response = (await (await fetch(url)).json());
-    const changes = response.items;
+    try {
+      const response: Response = (await (await fetch(url)).json());
+      const changes = response.items;
 
-    return changes.map(item => item.reputation_change || 0)
-      .reduce((sum, add) => sum + add, 0);
+      return changes.map(item => item.reputation_change || 0)
+        .reduce((sum, add) => sum + add, 0);
+    } catch {
+      return null;
+    }
   }
 }

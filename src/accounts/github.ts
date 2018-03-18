@@ -19,12 +19,16 @@ export class GitHubAccount implements Account {
 
   async getReport(day: number) {
     if (!this.contributions.has(day)) {
-      const html = await (await fetch(`${BASE_URL}/${this.userName}`)).text();
-      const document = new JSDOM(html).window.document;
+      try {
+        const html = await (await fetch(`${BASE_URL}/${this.userName}`)).text();
+        const document = new JSDOM(html).window.document;
 
-      for (const dayElement of Array.from(document.querySelectorAll('.day'))) {
-        this.contributions.set(getDayIndex(M((dayElement.getAttribute('data-date') as string).trim())),
-        parseInt(dayElement.getAttribute('data-count') as string));
+        for (const dayElement of Array.from(document.querySelectorAll('.day'))) {
+          this.contributions.set(getDayIndex(M((dayElement.getAttribute('data-date') as string).trim())),
+          parseInt(dayElement.getAttribute('data-count') as string));
+        }
+      } catch {
+        return null;
       }
     }
 
