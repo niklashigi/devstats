@@ -1,9 +1,10 @@
 import fetch from 'node-fetch';
 import chalk from 'chalk';
 import {JSDOM} from 'jsdom';
+import * as M from 'moment';
 
 import {Account} from './account';
-import {parseDayIndex} from '../time';
+import {getDayIndex} from '../time';
 
 const BASE_URL = 'https://github.com';
 
@@ -14,24 +15,19 @@ export class GitHubAccount implements Account {
   statistic = 'contributions made';
   theme = chalk.greenBright;
 
+  contributions: Map<number, number> = new Map();
+
   async getReport(day: number) {
-    const dayMoment = parseDayIndex(day);
+    if (!this.contributions.has(day)) {
+      const html = await (await fetch(`${BASE_URL}/${this.userName}`)).text();
+      const document = new JSDOM(html).window.document;
 
-    const html = await (await fetch(`${BASE_URL}/${this.userName}`)).text();
-    const document = new JSDOM(html).window.document;
-
-    let value = 0;
-
-    const date = dayMoment.format('YYYY-MM-DD');
-    const dayElement = Array.from(document.querySelectorAll('.day'))
-      .filter(el => el.getAttribute('data-date') === date);
-    if (dayElement.length) {
-      const dataCount = dayElement[0].getAttribute('data-count');
-      if (dataCount) {
-        value = parseInt(dataCount);
+      for (const dayElement of Array.from(document.querySelectorAll('.day'))) {
+        this.contributions.set(getDayIndex(M((dayElement.getAttribute('data-date') as string).trim())),
+        parseInt(dayElement.getAttribute('data-count') as string));
       }
     }
 
-    return value;
+    return this.contributions.get(day) as number;
   }
 }
