@@ -2,7 +2,6 @@
   "name": "devstats",
   "version": "1.0.0",
   "description": "Statistics for developers.",
-  "main": "index.js",
   "author": "Niklas Higi <niklas@shroudedcode.com> (https://shroudedcode.com/)",
   "license": "MIT",
   "bin": {
@@ -16,7 +15,6 @@
     "@types/jsdom": "^11.0.4",
     "@types/node": "^9.4.7",
     "@types/node-fetch": "^1.6.7",
-    "@types/ora": "^1.3.2",
     "@types/query-string": "^5.1.0",
     "@types/yargs": "^11.0.0",
     "ts-loader": "^4.0.1",
