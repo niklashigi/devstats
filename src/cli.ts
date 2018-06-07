@@ -8,6 +8,7 @@ import {Report} from './report';
 import {GitHubAccount} from './accounts/github';
 import {StackOverflowAccount} from './accounts/stackoverflow';
 import {WakaTimeAccount} from './accounts/wakatime';
+import {GitLabAccount} from './accounts/gitlab';
 
 import args from './args';
 import * as T from './libs/terminal';
@@ -43,9 +44,11 @@ if (args.interactive) {
 }
 
 const accounts: Account[] = [
-  new StackOverflowAccount(2901002),
-  new WakaTimeAccount('shroudedcode'),
-  new GitHubAccount('sindresorhus')
+  new StackOverflowAccount(8574166),
+  new WakaTimeAccount('samet'),
+  new GitHubAccount('selmansamet'),
+  new GitLabAccount('selmansamet')
+
 ];
 
 T.render('\n'.repeat(7));
