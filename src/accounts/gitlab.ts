@@ -1,6 +1,5 @@
 import fetch from 'node-fetch';
 import chalk from 'chalk';
-import {JSDOM} from 'jsdom';
 import * as M from 'moment';
 
 import {Account} from './account';
@@ -20,19 +19,19 @@ export class GitLabAccount implements Account {
   async getReport(day: number) {
     if (!this.contributions.has(day)) {
       try {
-        const json = await (await fetch(`${BASE_URL}/users/${this.userName}/calendar.json`)).text();
-        const contributions = JSON.parse(json);
-        const contributionsDays = Object.keys(contributions).map(c => getDayIndex(M((c as string).trim())));
-        if(!contributionsDays.includes(day)){
-            this.contributions.set(day, 0)
+        const contributions = await (await fetch(`${BASE_URL}/users/${this.userName}/calendar.json`)).json();
+        for (const contributionDate of Object.keys(contributions)) {
+          const contributionDay = getDayIndex(M(contributionDate));
+          this.contributions.set(contributionDay, parseInt(contributions[contributionDate]));
         }
-        for(const c of Array.from(Object.keys(contributions))){
-          this.contributions.set(getDayIndex(M((c as string).trim())), parseInt(contributions[c] as string));
+        if (!this.contributions.has(day)) {
+          this.contributions.set(day, 0);
         }
       } catch {
         return null;
       }
     }
+
     return this.contributions.get(day) as number;
   }
 }
