@@ -13,7 +13,7 @@ export class GitHubAccount implements Account {
 
   title = 'GitHub';
   statistic = 'contributions made';
-  theme = chalk.greenBright;
+  theme = chalk.hex('#34d058');
 
   contributions: Map<number, number> = new Map();
 

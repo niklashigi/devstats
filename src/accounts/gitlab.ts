@@ -12,7 +12,7 @@ export class GitLabAccount implements Account {
 
   title = 'GitLab';
   statistic = 'contributions made';
-  theme = chalk.rgb(252, 109, 38);
+  theme = chalk.hex('#f24533');
 
   contributions: Map<number, number> = new Map();
 

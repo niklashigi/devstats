@@ -44,9 +44,9 @@ if (args.interactive) {
 }
 
 const accounts: Account[] = [
+  new GitHubAccount('sindresorhus'),
   new StackOverflowAccount(2901002),
   new WakaTimeAccount('shroudedcode'),
-  new GitHubAccount('sindresorhus'),
   new GitLabAccount('nick.thomas')
 ];
 

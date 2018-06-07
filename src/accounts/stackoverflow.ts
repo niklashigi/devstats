@@ -18,7 +18,7 @@ export class StackOverflowAccount implements Account {
 
   title = 'StackOverflow';
   statistic = 'reputation earned';
-  theme = chalk.yellow;
+  theme = chalk.hex('#ff7e39');
 
   reputation: Map<number, number> = new Map();
 

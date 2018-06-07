@@ -27,7 +27,7 @@ export class WakaTimeAccount implements Account {
 
   title = 'WakaTime';
   statistic = 'spent coding';
-  theme = chalk.cyan;
+  theme = chalk.hex('#2595ff');
 
   apiKey: string | null | undefined;
   durations: Map<number, string> = new Map();
