@@ -22,8 +22,12 @@ export class GitLabAccount implements Account {
       try {
         const json = await (await fetch(`${BASE_URL}/users/${this.userName}/calendar.json`)).text();
         const contributions = JSON.parse(json);
-        for(let day of Object.keys(contributions)){
-          this.contributions.set(getDayIndex(M((day as string).trim())), parseInt(contributions[day] as string));
+        const contributionsDays = Object.keys(contributions).map(c => getDayIndex(M((c as string).trim())));
+        if(!contributionsDays.includes(day)){
+            this.contributions.set(day, 0)
+        }
+        for(const c of Array.from(Object.keys(contributions))){
+          this.contributions.set(getDayIndex(M((c as string).trim())), parseInt(contributions[c] as string));
         }
       } catch {
         return null;
