@@ -10,6 +10,7 @@ import {StackOverflowAccount} from './accounts/stackoverflow';
 import {WakaTimeAccount} from './accounts/wakatime';
 import {GitLabAccount} from './accounts/gitlab';
 import {ReverseEngineeringAccount} from './accounts/stackexchange/reverseengineering';
+import {HackerRankAccount} from './accounts/hackerrank';
 
 import args from './args';
 import * as T from './libs/terminal';
@@ -50,6 +51,7 @@ const accounts: Account[] = [
   new WakaTimeAccount('shroudedcode'),
   new GitLabAccount('nick.thomas'),
   new ReverseEngineeringAccount(18014),
+  new HackerRankAccount('uwi'),
 ];
 
 T.render('\n'.repeat(7));
