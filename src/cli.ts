@@ -1,99 +1,45 @@
-import * as moment from 'moment';
+import gar = require('gar');
 import chalk from 'chalk';
 
-import {getDayIndex, parseDayIndex} from './time';
-import {Account} from './accounts/account';
-import {Report} from './report';
+import show from './commands/show';
+import add from './commands/add';
+import remove from './commands/remove';
 
-import {GitHubAccount} from './accounts/github';
-import {StackOverflowAccount} from './accounts/stackoverflow';
-import {WakaTimeAccount} from './accounts/wakatime';
-import {GitLabAccount} from './accounts/gitlab';
-import {ReverseEngineeringAccount} from './accounts/stackexchange/reverseengineering';
-import {HackerRankAccount} from './accounts/hackerrank';
+const args = gar(process.argv.slice(2)) as {
+  i?: boolean | string;
+  interactive?: boolean | string;
+  help?: boolean | string;
+  _: string[];
+};
 
-import args from './args';
-import * as T from './libs/terminal';
+if (Boolean(args.help)) {
+  console.log(chalk`
+  {bold devstats}
+  {blue Display the daily report for the current day}
 
-const todayIndex = getDayIndex(moment());
-let dayIndex = todayIndex;
-let dayMoment = parseDayIndex(dayIndex);
-let dayString = dayMoment.format('MMMM Do, YYYY');
+  {bold devstats} -i {grey or} {bold devstats} --interactive
+  {blue Switch between days interactively}
 
-const reports: Map<Account, Report> = new Map();
+  {bold devstats} add <url>
+  {dim {bold devstats} add https://github.com/shroudedcode}
+  {blue Add a new account through its URL}
 
-const {stdin} = process;
-if (args.interactive) {
-  T.interactify();
-}
+  {bold devstats} remove <url>
+  {dim {bold devstats} add https://stackoverflow.com/users/6662225}
+  {blue Remove an account through its URL}
+  `);
+} else if (args._.length === 0) {
+  show({interactive: Boolean(args.i || args.interactive)});
+} else {
+  const command = args._.shift() as string;
+  const commandArgs = args._;
 
-if (args.interactive) {
-  stdin.on('data', (key: string) => {
-    if (['\u0003', 'x', 'q'].includes(key.toLowerCase())) {
-      process.exit();
-    } else if (key.startsWith('\u001b[') && key.length === 3) {
-      if (key[2] === 'D') {
-        // Left arrow key
-        dayIndex--;
-        printDailyReport();
-      } else if (key[2] === 'C' && dayIndex < todayIndex) {
-        // Right arrow key
-        dayIndex++;
-        printDailyReport();
-      }
-    }
-  });
-}
-
-const accounts: Account[] = [
-  new GitHubAccount('sindresorhus'),
-  new StackOverflowAccount(2901002),
-  new WakaTimeAccount('shroudedcode'),
-  new GitLabAccount('nick.thomas'),
-  new ReverseEngineeringAccount(18014),
-  new HackerRankAccount('uwi'),
-];
-
-T.render('\n'.repeat(7));
-
-function printDailyReport() {
-  dayMoment = parseDayIndex(dayIndex);
-  dayString = dayMoment.format('MMMM Do, YYYY');
-
-  reports.clear();
-  render();
-
-  for (const account of accounts) {
-    account.getReport(dayIndex).then(report => {
-      reports.set(account, report);
-      render();
-    });
+  if (command === 'add') {
+    add(typeof commandArgs[0] === 'string' ? commandArgs[0] : undefined);
+  } else if (command === 'remove') {
+    remove(typeof commandArgs[0] === 'string' ? commandArgs[0] : undefined);
+  } else {
+    console.log(chalk`{red The subcommand {bold ${command}} could not be found!}`);
+    process.exit(1);
   }
 }
-
-const renderReport = ({statistic}: Account, report: Report) =>
-  report !== undefined && report !== null ?
-  chalk`{bold ${report + ''}} ${statistic}` : chalk.red('An error occurred.');
-
-function render() {
-  let output = '';
-  output += chalk`\n{blue   Daily report for {bold ${dayString}}}\n`;
-  output += '\n';
-  for (const account of accounts) {
-    if (reports.has(account)) {
-      const report = reports.get(account) as Report;
-      output += chalk`  {inverse ${account.theme(' ')}} ${account.theme(account.title.padEnd(15))}${renderReport(account, report)}\n`;
-    } else {
-      output += chalk`  {gray.inverse  } {gray.dim ${account.title.padEnd(15)}}{dim Loading ...}\n`;
-    }
-  }
-  if (args.interactive) {
-    output += chalk`
-  {blue {dim [}{bold ←} Previous day{dim ]} ${(dayIndex < todayIndex ? chalk.blue : chalk.gray)(chalk`{dim [}{bold →} Next day{dim ]}`)} {dim [}{bold Q} Quit{dim ]}}
-`;
-  }
-  output += '\n';
-  T.render(output);
-}
-
-printDailyReport();
