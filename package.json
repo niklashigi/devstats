@@ -1,14 +1,19 @@
 {
   "name": "devstats",
   "version": "1.0.0",
-  "description": "Statistics for developers.",
+  "description": "A CLI application that fetches stats from developer sites.",
   "author": "Niklas Higi <niklas@shroudedcode.com> (https://shroudedcode.com/)",
   "license": "MIT",
+  "files": [
+    "dist",
+    "bin"
+  ],
   "bin": {
     "devstats": "bin/devstats"
   },
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "release": "rm -rf dist; tsc --sourceMap false; np"
   },
   "devDependencies": {
     "@types/conf": "^1.4.0",
@@ -18,6 +23,7 @@
     "@types/node-fetch": "^2.1.2",
     "@types/query-string": "^6.1.0",
     "@types/yargs": "^11.1.1",
+    "np": "^3.0.4",
     "ts-loader": "^4.5.0",
     "tslint": "^5.11.0",
     "tslint-xo": "^0.9.0",
@@ -32,6 +38,5 @@
     "moment": "^2.22.2",
     "node-fetch": "^2.2.0",
     "query-string": "^6.1.0"
-  },
-  "private": true
+  }
 }

@@ -1,14 +1,77 @@
-# DevStats
+# devstats
 
-DevStats is a CLI application written in TypeScript that fetches statistics from StackOverflow, WakaTime and GitHub and displays them. I wrote it as a prototype for an application I wrote during an internship, so I didn't worry about finishing it until [its demo on Asciinema](https://asciinema.org/a/170671) got featured and [someone hit me up on Twitter about it](https://twitter.com/pawel_lukasik/status/986572947795140608).
+> A CLI application that fetches stats from developer sites.
 
-Unfortunately I don't have the time and motivation  to continue working on this project at the moment, but if anyone's interested in contributing: pull requests are welcome. Here are some things you could work on:
+![](https://user-images.githubusercontent.com/29176678/44999492-f17d4a80-afbd-11e8-965d-feb70142ac01.png)
 
-* make DevStats configurable (currently the accounts are hard-coded)
-* fix the issue of incoming responses from other days overwriting stats of the current day
-* implement proper error handling (currently errors are just caught and ignored)
+DevStats is a CLI application written in TypeScript that fetches statistics from "developer sites" like StackOverflow, WakaTime and GitHub and displays them nicely.
 
-To test out this package, install the dependencies using `npm install`, build the TypeScript code using `npm run build` and link the binary using `npm link`. You can then use the `devstats` CLI.
+## Installation
+
+Install it globally using:
+
+```console
+$ npm install -g devstats
+```
+
+Or if you're using Yarn:
+
+```console
+$ yarn global add devstats
+```
+
+## Usage
+
+Add accounts from the [supported sites](#supported-sites):
+
+```console
+$ devstats add https://github.com/shroudedcode
+```
+
+Display your daily report:
+
+```console
+$ devstats
+```
+
+Display your daily report and switch between days using your keyboard:
+
+```console
+$ devstats -i
+```
+
+### Full list of commands
+
+From `devstats --help`:
+
+```console
+Display the daily report for the current day:
+
+$ devstats
+
+Switch between days interactively:
+
+$ devstats -i or devstats --interactive
+
+Add a new account through its URL:
+
+$ devstats add <url>
+$ devstats add https://github.com/shroudedcode
+
+Remove an account through its URL:
+
+$ devstats remove <url>
+$ devstats remove https://stackoverflow.com/users/6662225
+```
+
+### Supported sites
+
+- GitHub
+- GitLab
+- StackOverflow
+- WakaTime
+- Hackerrank
+- Reverse Engineering SE
 
 ## License
 
