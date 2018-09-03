@@ -9,6 +9,7 @@ import chalk from 'chalk';
 
 import {Account} from './account';
 import {parseDayIndex} from '../time';
+import {parseSlashAccountUrl} from '../libs/urls';
 
 const BASE_URL = 'https://wakatime.com/api/v1';
 
@@ -23,7 +24,11 @@ interface Response {
 const formatMoment = (moment: M.Moment) => moment.format('YYYY-MM-DD');
 
 export class WakaTimeAccount implements Account {
-  constructor(private userName: string) {}
+  private username: string;
+
+  constructor(url: string) {
+    this.username = parseSlashAccountUrl(url, 'wakatime.com');
+  }
 
   title = 'WakaTime';
   statistic = 'spent coding';
@@ -43,7 +48,7 @@ export class WakaTimeAccount implements Account {
     }
 
     const dayMoment = parseDayIndex(day);
-    const url = `${BASE_URL}/users/${this.userName}/summaries?` + querify({
+    const url = `${BASE_URL}/users/${this.username}/summaries?` + querify({
       start: formatMoment(dayMoment),
       end: formatMoment(dayMoment.add(1, 'day')),
       api_key: this.apiKey

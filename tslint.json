@@ -5,6 +5,7 @@
     "only-arrow-functions": false,
     "no-unused-expression": false,
     "no-require-imports": false,
+    "curly": [true, "ignore-same-line"],
     "radix": false
   }
 }

@@ -4,11 +4,16 @@ import * as M from 'moment';
 
 import {Account} from './account';
 import {getDayIndex} from '../time';
+import {parseAccountUrl} from '../libs/urls';
 
 const BASE_URL = 'https://hackerrank.com';
 
 export class HackerRankAccount implements Account {
-  constructor(private userName: string) {}
+  private username: string;
+
+  constructor(url: string) {
+    this.username = parseAccountUrl(url, /\/\/(?:www\.)?hackerrank\.com\/(?:profile\/)?([^/\s?]+)/i);
+  }
 
   title = 'HackerRank';
   statistic = 'submissions made';
@@ -19,7 +24,7 @@ export class HackerRankAccount implements Account {
   async getReport(day: number) {
     if (!this.submissions.has(day)) {
       try {
-        const contributions = await (await fetch(`${BASE_URL}/rest/hackers/${this.userName}/submission_histories`)).json();
+        const contributions = await (await fetch(`${BASE_URL}/rest/hackers/${this.username}/submission_histories`)).json();
         for (const contributionDate of Object.keys(contributions)) {
           const contributionDay = getDayIndex(M(contributionDate));
           this.submissions.set(contributionDay, parseInt(contributions[contributionDate]));
