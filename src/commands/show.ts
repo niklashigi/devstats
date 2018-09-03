@@ -60,12 +60,15 @@ export default function show({interactive}: {interactive: boolean}) {
   function printDailyReport() {
     dayMoment = parseDayIndex(dayIndex);
     dayString = dayMoment.format('MMMM Do, YYYY');
+    const currentDayIndex = dayIndex;
 
     reports.clear();
     render();
 
     for (const account of accounts) {
-      account.getReport(dayIndex).then(report => {
+      account.getReport(currentDayIndex).then(report => {
+        if (currentDayIndex !== dayIndex) return;
+
         reports.set(account, report);
         render();
       });
