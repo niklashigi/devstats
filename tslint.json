@@ -1,8 +1,10 @@
 {
   "extends": ["tslint-xo/space"],
   "rules": {
+    "quotemark": [true, "single", "avoid-escape"],
     "only-arrow-functions": false,
     "no-unused-expression": false,
+    "no-require-imports": false,
     "radix": false
   }
 }
