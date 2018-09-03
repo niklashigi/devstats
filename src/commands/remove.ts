@@ -1,4 +1,6 @@
 import chalk from 'chalk';
+
+import showUpdateNotification from '../libs/update-notifier';
 import {resolveAccountUrl} from '../libs/accounts';
 import getConfig from '../libs/config';
 
@@ -18,4 +20,6 @@ export default function remove(url?: string) {
   console.log(chalk`
   {blue You've successfully removed {bold ${accountUrl}} from your accounts!}
 `);
+
+  showUpdateNotification();
 }

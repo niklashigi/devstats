@@ -1,4 +1,6 @@
 import chalk from 'chalk';
+
+import showUpdateNotification from '../libs/update-notifier';
 import {resolveAccountUrl} from '../libs/accounts';
 import getConfig from '../libs/config';
 
@@ -17,5 +19,7 @@ export default function add(url?: string) {
   config.set('accounts', [...accounts, accountUrl]);
   console.log(chalk`
   {blue You've successfully added {bold ${accountUrl}} to your accounts!}
-`);
+  `);
+
+  showUpdateNotification();
 }

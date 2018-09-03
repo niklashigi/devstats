@@ -2,6 +2,7 @@ import gar = require('gar');
 import chalk from 'chalk';
 
 import './libs/handle-errors';
+import showUpdateNotification from './libs/update-notifier';
 
 import show from './commands/show';
 import add from './commands/add';
@@ -34,6 +35,8 @@ if (Boolean(args.help)) {
   {dim $} {bold devstats} remove <url>
   {grey {dim $} {bold devstats} remove https://stackoverflow.com/users/6662225}
   `);
+
+  showUpdateNotification();
 } else if (args._.length === 0) {
   show({interactive: Boolean(args.i || args.interactive)});
 } else {
