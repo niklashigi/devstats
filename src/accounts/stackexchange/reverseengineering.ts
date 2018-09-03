@@ -1,10 +1,14 @@
 import chalk from 'chalk';
 
 import {StackExchangeAccount} from '../stackexchange';
+import {parseAccountUrl} from '../../libs/urls';
 
 export class ReverseEngineeringAccount extends StackExchangeAccount {
-  constructor(userId: number) {
-    super('reverseengineering', userId);
+  constructor(url: string) {
+    super(
+      'stackoverflow',
+      parseAccountUrl(url, /\/\/reverseengineering\.stackexchange\.com\/users\/(\d+)/i),
+    );
   }
 
   title = 'Reverse Eng.';
