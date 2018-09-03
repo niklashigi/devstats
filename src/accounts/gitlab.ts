@@ -15,6 +15,10 @@ export class GitLabAccount implements Account {
     this.username = parseSlashAccountUrl(url, 'gitlab.com');
   }
 
+  get canonicalUrl() {
+    return `https://gitlab.com/${this.username}`;
+  }
+
   title = 'GitLab';
   statistic = 'contributions made';
   theme = chalk.hex('#f24533');

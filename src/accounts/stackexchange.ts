@@ -12,7 +12,7 @@ interface Response {
 }
 
 export abstract class StackExchangeAccount {
-  constructor(private site: string, private userId: string) {}
+  constructor(private site: string, protected userId: string) {}
 
   reputation: Map<number, number> = new Map();
 

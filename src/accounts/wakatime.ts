@@ -30,6 +30,10 @@ export class WakaTimeAccount implements Account {
     this.username = parseSlashAccountUrl(url, 'wakatime.com');
   }
 
+  get canonicalUrl() {
+    return `https://wakatime.com/@${this.username}`;
+  }
+
   title = 'WakaTime';
   statistic = 'spent coding';
   theme = chalk.hex('#2595ff');
