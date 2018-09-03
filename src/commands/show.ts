@@ -1,12 +1,13 @@
 import * as moment from 'moment';
 import chalk from 'chalk';
 
+import * as Terminal from '../libs/terminal';
+import showUpdateNotification from '../libs/update-notifier';
 import {getDayIndex, parseDayIndex} from '../time';
+
+import getConfig from '../libs/config';
 import {Account} from '../accounts/account';
 import {Report} from '../report';
-
-import * as Terminal from '../libs/terminal';
-import getConfig from '../libs/config';
 import {resolveAccountUrl} from '../libs/accounts';
 
 export default function show({interactive}: {interactive: boolean}) {
@@ -42,6 +43,7 @@ export default function show({interactive}: {interactive: boolean}) {
 
     stdin.on('data', (key: string) => {
       if (['\u0003', 'x', 'q'].includes(key.toLowerCase())) {
+        showUpdateNotification();
         process.exit();
       } else if (key.startsWith('\u001b[') && key.length === 3) {
         if (key[2] === 'D') {

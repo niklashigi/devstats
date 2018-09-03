@@ -22,6 +22,7 @@
     "@types/node": "^10.9.4",
     "@types/node-fetch": "^2.1.2",
     "@types/query-string": "^6.1.0",
+    "@types/update-notifier": "^2.2.0",
     "@types/yargs": "^11.1.1",
     "np": "^3.0.4",
     "ts-loader": "^4.5.0",
@@ -37,6 +38,7 @@
     "jsdom": "^12.0.0",
     "moment": "^2.22.2",
     "node-fetch": "^2.2.0",
-    "query-string": "^6.1.0"
+    "query-string": "^6.1.0",
+    "update-notifier": "^2.5.0"
   }
 }
