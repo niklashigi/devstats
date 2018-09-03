@@ -5,4 +5,5 @@ export interface Account {
   statistic: string;
   theme(str: string): string;
   getReport(day: number): Promise<Report>;
+  canonicalUrl: string;
 }

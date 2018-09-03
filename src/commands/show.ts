@@ -5,11 +5,29 @@ import {getDayIndex, parseDayIndex} from '../time';
 import {Account} from '../accounts/account';
 import {Report} from '../report';
 
-import accounts from '../libs/accounts';
-
 import * as Terminal from '../libs/terminal';
+import getConfig from '../libs/config';
+import {resolveAccountUrl} from '../libs/accounts';
 
 export default function show({interactive}: {interactive: boolean}) {
+  const accounts = getConfig().get('accounts').map(resolveAccountUrl);
+
+  if (accounts.length === 0) {
+    console.log(chalk`
+  {blue {bold You don't have any accounts at the moment!}
+
+  Add some using their URLs like this:}
+
+  {dim $} {bold devstats} add https://github.com/shroudedcode
+  {dim $} {bold devstats} add https://stackoverflow.com/users/6662225
+
+  {blue For a complete help, type:}
+
+  {dim $} {bold devstats} --help
+`);
+    return;
+  }
+
   const todayIndex = getDayIndex(moment());
 
   let dayIndex = todayIndex;

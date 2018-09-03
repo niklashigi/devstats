@@ -11,6 +11,7 @@
     "build": "tsc"
   },
   "devDependencies": {
+    "@types/conf": "^1.4.0",
     "@types/fs-extra": "^5.0.4",
     "@types/jsdom": "^11.0.6",
     "@types/node": "^10.9.4",
@@ -24,6 +25,7 @@
   },
   "dependencies": {
     "chalk": "^2.4.1",
+    "conf": "^2.0.0",
     "fs-extra": "^7.0.0",
     "gar": "^1.0.3",
     "jsdom": "^12.0.0",

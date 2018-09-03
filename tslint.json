@@ -6,6 +6,7 @@
     "no-unused-expression": false,
     "no-require-imports": false,
     "curly": [true, "ignore-same-line"],
+    "no-import-side-effect": false,
     "radix": false
   }
 }

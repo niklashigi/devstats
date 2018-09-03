@@ -1,12 +1,21 @@
 import chalk from 'chalk';
+import {resolveAccountUrl} from '../libs/accounts';
+import getConfig from '../libs/config';
 
-export default function remove(url?: string) {
-  if (!url) {
-    console.log(chalk.red('You have to specify an account URL to add.'));
-    process.exit(1);
-    return;
+export default function add(url?: string) {
+  if (!url) throw new Error('You have to specify an account URL to add.');
+
+  const accountUrl = resolveAccountUrl(url).canonicalUrl;
+
+  const config = getConfig();
+  const accounts = config.get('accounts');
+
+  if (accounts.includes(accountUrl)) {
+    throw new Error(chalk`You've already added {bold ${accountUrl}} to your accounts.`);
   }
 
-  // TODO: Actually implement this command
-  console.log(`Removed ${url}`);
+  config.set('accounts', [...accounts, accountUrl]);
+  console.log(chalk`
+  {blue You've successfully added {bold ${accountUrl}} to your accounts!}
+`);
 }

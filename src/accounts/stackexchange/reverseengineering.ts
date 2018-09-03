@@ -11,6 +11,10 @@ export class ReverseEngineeringAccount extends StackExchangeAccount {
     );
   }
 
+  get canonicalUrl() {
+    return `https://reverseengineering.stackexchange.com/users/${this.userId}`;
+  }
+
   title = 'Reverse Eng.';
   statistic = 'reputation earned';
 

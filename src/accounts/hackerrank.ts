@@ -15,6 +15,10 @@ export class HackerRankAccount implements Account {
     this.username = parseAccountUrl(url, /\/\/(?:www\.)?hackerrank\.com\/(?:profile\/)?([^/\s?]+)/i);
   }
 
+  get canonicalUrl() {
+    return `https://hackerrank.com/${this.username}`;
+  }
+
   title = 'HackerRank';
   statistic = 'submissions made';
   theme = chalk.hex('#23b355');

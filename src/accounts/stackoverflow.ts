@@ -11,6 +11,10 @@ export class StackOverflowAccount extends StackExchangeAccount {
     );
   }
 
+  get canonicalUrl() {
+    return `https://stackoverflow.com/users/${this.userId}`;
+  }
+
   title = 'StackOverflow';
   statistic = 'reputation earned';
   theme = chalk.hex('#ff7e39');

@@ -16,6 +16,10 @@ export class GitHubAccount implements Account {
     this.username = parseAccountUrl(url, /\/\/github.com\/([^/\s]+)/i);
   }
 
+  get canonicalUrl() {
+    return `https://github.com/${this.username}`;
+  }
+
   title = 'GitHub';
   statistic = 'contributions made';
   theme = chalk.hex('#34d058');

@@ -1,12 +1,21 @@
 import chalk from 'chalk';
+import {resolveAccountUrl} from '../libs/accounts';
+import getConfig from '../libs/config';
 
 export default function remove(url?: string) {
-  if (!url) {
-    console.log(chalk.red('You have to specify an account URL to add.'));
-    process.exit(1);
-    return;
+  if (!url) throw new Error('You have to specify an account URL to remove.');
+
+  const accountUrl = resolveAccountUrl(url).canonicalUrl;
+
+  const config = getConfig();
+  const accounts = config.get('accounts');
+
+  if (!accounts.includes(accountUrl)) {
+    throw new Error(chalk`Your accounts don't contain {bold ${accountUrl}}.`);
   }
 
-  // TODO: Actually implement this command
-  console.log(`Removed ${url}`);
+  config.set('accounts', accounts.filter(account => account !== accountUrl));
+  console.log(chalk`
+  {blue You've successfully removed {bold ${accountUrl}} from your accounts!}
+`);
 }
