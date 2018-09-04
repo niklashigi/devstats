@@ -8,7 +8,7 @@ import {getDayIndex, parseDayIndex} from '../time';
 import getConfig from '../libs/config';
 import {Account} from '../accounts/account';
 import {Report} from '../report';
-import {resolveAccountUrl} from '../libs/accounts';
+import {resolveAccountUrl, getAccountType} from '../libs/accounts';
 
 export default function show({interactive}: {interactive: boolean}) {
   const accounts = getConfig().get('accounts').map(resolveAccountUrl);
@@ -80,20 +80,24 @@ export default function show({interactive}: {interactive: boolean}) {
     }
   }
 
-  const renderReport = ({statistic}: Account, report: Report) =>
-    report !== undefined && report !== null ?
-    chalk`{bold ${report + ''}} ${statistic}` : chalk.red('An error occurred.');
+  function renderReport(account: Account, report: Report) {
+    const accountType = getAccountType(account);
+    return report !== undefined && report !== null ?
+      chalk`{bold ${report + ''}} ${accountType.statistic}`
+      : chalk.red('An error occurred.');
+  }
 
   function render() {
     let output = '';
     output += chalk`\n{blue   Daily report for {bold ${dayString}}}\n`;
     output += '\n';
     for (const account of accounts) {
+      const {title, theme} = getAccountType(account);
       if (reports.has(account)) {
         const report = reports.get(account) as Report;
-        output += chalk`  {inverse ${account.theme(' ')}} ${account.theme(account.title.padEnd(15))}${renderReport(account, report)}\n`;
+        output += chalk`  {inverse ${theme(' ')}} ${theme(title.padEnd(15))}${renderReport(account, report)}\n`;
       } else {
-        output += chalk`  {gray.inverse  } {gray.dim ${account.title.padEnd(15)}}{dim Loading ...}\n`;
+        output += chalk`  {gray.inverse  } {gray.dim ${title.padEnd(15)}}{dim Loading ...}\n`;
       }
     }
     if (interactive) {

@@ -9,10 +9,13 @@ import {GitLabAccount} from '../accounts/gitlab';
 import {ReverseEngineeringAccount} from '../accounts/stackexchange/reverseengineering';
 import {HackerRankAccount} from '../accounts/hackerrank';
 
-interface AccountClass {
+export interface AccountType {
   new(url: string): Account;
-  resolveUrlToId(url: string): string;
+  title: string;
   aliases: string[];
+  statistic: string;
+  theme(str: string): string;
+  resolveUrlToId(url: string): string;
 }
 
 const accountTypes = [
@@ -22,7 +25,11 @@ const accountTypes = [
   GitLabAccount,
   ReverseEngineeringAccount,
   HackerRankAccount,
-] as any as AccountClass[];
+] as any as AccountType[];
+
+export function getAccountType(account: Account): AccountType {
+  return (account as any).constructor;
+}
 
 export function resolveAccountUrl(url: string): Account {
   for (const accountType of accountTypes) {

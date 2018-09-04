@@ -24,7 +24,10 @@ interface Response {
 const formatMoment = (moment: M.Moment) => moment.format('YYYY-MM-DD');
 
 export class WakaTimeAccount implements Account {
+  static title = 'WakaTime';
   static aliases = ['wakatime', 'wt'];
+  static statistic = 'spent coding';
+  static theme = chalk.hex('#2595ff');
 
   static resolveUrlToId(url: string) {
     return parseSlashAccountUrl(url, 'wakatime.com');
@@ -35,10 +38,6 @@ export class WakaTimeAccount implements Account {
   get canonicalUrl() {
     return `https://wakatime.com/@${this.username}`;
   }
-
-  title = 'WakaTime';
-  statistic = 'spent coding';
-  theme = chalk.hex('#2595ff');
 
   apiKey: string | null | undefined;
   durations: Map<number, string> = new Map();

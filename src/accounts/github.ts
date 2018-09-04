@@ -10,7 +10,10 @@ import {parseAccountUrl} from '../libs/urls';
 const BASE_URL = 'https://github.com';
 
 export class GitHubAccount implements Account {
+  static title = 'GitHub';
   static aliases = ['github', 'gh'];
+  static statistic = 'contributions made';
+  static theme = chalk.hex('#34d058');
 
   static resolveUrlToId(url: string) {
     return parseAccountUrl(url, /\/\/github.com\/([^/\s]+)/i);
@@ -21,10 +24,6 @@ export class GitHubAccount implements Account {
   get canonicalUrl() {
     return `https://github.com/${this.username}`;
   }
-
-  title = 'GitHub';
-  statistic = 'contributions made';
-  theme = chalk.hex('#34d058');
 
   contributions: Map<number, number> = new Map();
 

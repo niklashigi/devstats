@@ -9,7 +9,10 @@ import {parseSlashAccountUrl} from '../libs/urls';
 const BASE_URL = 'https://gitlab.com';
 
 export class GitLabAccount implements Account {
+  static title = 'GitLab';
   static aliases = ['gitlab', 'gl'];
+  static statistic = 'contributions made';
+  static theme = chalk.hex('#f24533');
 
   static resolveUrlToId(url: string) {
     return parseSlashAccountUrl(url, 'gitlab.com');
@@ -20,10 +23,6 @@ export class GitLabAccount implements Account {
   get canonicalUrl() {
     return `https://gitlab.com/${this.username}`;
   }
-
-  title = 'GitLab';
-  statistic = 'contributions made';
-  theme = chalk.hex('#f24533');
 
   contributions: Map<number, number> = new Map();
 

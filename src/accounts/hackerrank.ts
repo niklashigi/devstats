@@ -9,7 +9,10 @@ import {parseAccountUrl} from '../libs/urls';
 const BASE_URL = 'https://hackerrank.com';
 
 export class HackerRankAccount implements Account {
+  static title = 'HackerRank';
   static aliases = ['hackerrank', 'hr'];
+  static statistic = 'submissions made';
+  static theme = chalk.hex('#23b355');
 
   static resolveUrlToId(url: string) {
     return parseAccountUrl(url, /\/\/(?:www\.)?hackerrank\.com\/(?:profile\/)?([^/\s?]+)/i);
@@ -20,10 +23,6 @@ export class HackerRankAccount implements Account {
   get canonicalUrl() {
     return `https://hackerrank.com/${this.username}`;
   }
-
-  title = 'HackerRank';
-  statistic = 'submissions made';
-  theme = chalk.hex('#23b355');
 
   submissions: Map<number, number> = new Map();
 
