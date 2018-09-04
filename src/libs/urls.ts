@@ -7,5 +7,5 @@ export function parseAccountUrl(url: string, regex: RegExp): string {
   if (matches && matches[1]) {
     return matches[1];
   }
-  throw new Error(`The given URL could not be resolved to an account of this type!`);
+  throw `The given URL could not be resolved to an account of this type!`;
 }

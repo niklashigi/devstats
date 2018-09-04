@@ -10,11 +10,13 @@ import {parseAccountUrl} from '../libs/urls';
 const BASE_URL = 'https://github.com';
 
 export class GitHubAccount implements Account {
-  private username: string;
+  static aliases = ['github', 'gh'];
 
-  constructor(url: string) {
-    this.username = parseAccountUrl(url, /\/\/github.com\/([^/\s]+)/i);
+  static resolveUrlToId(url: string) {
+    return parseAccountUrl(url, /\/\/github.com\/([^/\s]+)/i);
   }
+
+  constructor(private username: string) {}
 
   get canonicalUrl() {
     return `https://github.com/${this.username}`;

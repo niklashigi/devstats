@@ -9,11 +9,13 @@ import {parseSlashAccountUrl} from '../libs/urls';
 const BASE_URL = 'https://gitlab.com';
 
 export class GitLabAccount implements Account {
-  private username: string;
+  static aliases = ['gitlab', 'gl'];
 
-  constructor(url: string) {
-    this.username = parseSlashAccountUrl(url, 'gitlab.com');
+  static resolveUrlToId(url: string) {
+    return parseSlashAccountUrl(url, 'gitlab.com');
   }
+
+  constructor(private username: string) {}
 
   get canonicalUrl() {
     return `https://gitlab.com/${this.username}`;

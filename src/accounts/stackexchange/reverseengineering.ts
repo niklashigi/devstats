@@ -4,11 +4,14 @@ import {StackExchangeAccount} from '../stackexchange';
 import {parseAccountUrl} from '../../libs/urls';
 
 export class ReverseEngineeringAccount extends StackExchangeAccount {
-  constructor(url: string) {
-    super(
-      'stackoverflow',
-      parseAccountUrl(url, /\/\/reverseengineering\.stackexchange\.com\/users\/(\d+)/i),
-    );
+  static aliases = ['reverseengineering', 're'];
+
+  static resolveUrlToId(url: string) {
+    return parseAccountUrl(url, /\/\/reverseengineering\.stackexchange\.com\/users\/(\d+)/i);
+  }
+
+  constructor(userId: string) {
+    super('stackoverflow', userId);
   }
 
   get canonicalUrl() {

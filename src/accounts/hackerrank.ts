@@ -9,11 +9,13 @@ import {parseAccountUrl} from '../libs/urls';
 const BASE_URL = 'https://hackerrank.com';
 
 export class HackerRankAccount implements Account {
-  private username: string;
+  static aliases = ['hackerrank', 'hr'];
 
-  constructor(url: string) {
-    this.username = parseAccountUrl(url, /\/\/(?:www\.)?hackerrank\.com\/(?:profile\/)?([^/\s?]+)/i);
+  static resolveUrlToId(url: string) {
+    return parseAccountUrl(url, /\/\/(?:www\.)?hackerrank\.com\/(?:profile\/)?([^/\s?]+)/i);
   }
+
+  constructor(private username: string) {}
 
   get canonicalUrl() {
     return `https://hackerrank.com/${this.username}`;

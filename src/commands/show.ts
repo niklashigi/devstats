@@ -17,12 +17,15 @@ export default function show({interactive}: {interactive: boolean}) {
     console.log(chalk`
   {blue {bold You don't have any accounts at the moment!}
 
-  Add some using their URLs like this:}
+  Add some like this:}
+
+  {dim $} {bold devstats} add github shroudedcode
+
+  {blue Or like this:}
 
   {dim $} {bold devstats} add https://github.com/shroudedcode
-  {dim $} {bold devstats} add https://stackoverflow.com/users/6662225
 
-  {blue For a complete help, type:}
+  {blue For a list of all commands and examples, run:}
 
   {dim $} {bold devstats} --help
 `);

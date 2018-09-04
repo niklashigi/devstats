@@ -9,6 +9,12 @@ import {GitLabAccount} from '../accounts/gitlab';
 import {ReverseEngineeringAccount} from '../accounts/stackexchange/reverseengineering';
 import {HackerRankAccount} from '../accounts/hackerrank';
 
+interface AccountClass {
+  new(url: string): Account;
+  resolveUrlToId(url: string): string;
+  aliases: string[];
+}
+
 const accountTypes = [
   GitHubAccount,
   StackOverflowAccount,
@@ -16,13 +22,39 @@ const accountTypes = [
   GitLabAccount,
   ReverseEngineeringAccount,
   HackerRankAccount,
-];
+] as any as AccountClass[];
 
 export function resolveAccountUrl(url: string): Account {
   for (const accountType of accountTypes) {
     try {
-      return new accountType(url);
+      const id = accountType.resolveUrlToId(url);
+      return new accountType(id);
     } catch { /**/ }
   }
-  throw new Error(chalk`{bold ${url}} could not be resolved to an account!`);
+  throw chalk`{bold ${url}} could not be resolved to an account!`;
+}
+
+export function resolveAccountTypeAndId(type: string, id: string): Account {
+  for (const accountType of accountTypes) {
+    if (accountType.aliases.includes(type.toLowerCase())) {
+      return new accountType(id);
+    }
+  }
+  throw chalk`The account type {bold ${type}} could not be found!`;
+}
+
+export function resolveAccountArguments(args: string[]) {
+  if (args.length === 1) return resolveAccountUrl(args[0]);
+  if (args.length === 2) return resolveAccountTypeAndId(args[0], args[1]);
+
+  throw chalk`Invalid number of arguments!
+
+  {reset {blue You can only call this command like this:}
+
+  {dim $} {bold devstats} add/remove <site> <username/user-id>
+  {dim $} {bold devstats} add/remove <url>
+
+  {blue For a list of all commands and examples, run:}
+
+  {dim $} {bold devstats} --help}`;
 }

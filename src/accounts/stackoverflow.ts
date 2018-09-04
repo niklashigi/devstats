@@ -4,11 +4,14 @@ import {StackExchangeAccount} from './stackexchange';
 import {parseAccountUrl} from '../libs/urls';
 
 export class StackOverflowAccount extends StackExchangeAccount {
-  constructor(url: string) {
-    super(
-      'stackoverflow',
-      parseAccountUrl(url, /\/\/stackoverflow\.com\/users\/(\d+)/i),
-    );
+  static aliases = ['stackoverflow', 'so'];
+
+  static resolveUrlToId(url: string) {
+    return parseAccountUrl(url, /\/\/stackoverflow\.com\/users\/(\d+)/i);
+  }
+
+  constructor(userId: string) {
+    super('stackoverflow', userId);
   }
 
   get canonicalUrl() {

@@ -25,12 +25,18 @@ if (Boolean(args.help)) {
 
   {dim $} {bold devstats} -i {dim or} {bold devstats} --interactive
 
-  {blue Add a new account through its URL:}
+  {blue Add an account:}
+
+  {dim $} {bold devstats} add <site> <username/user-id>
+  {grey {dim $} {bold devstats} add github shroudedcode}
 
   {dim $} {bold devstats} add <url>
   {grey {dim $} {bold devstats} add https://github.com/shroudedcode}
 
-  {blue Remove an account through its URL:}
+  {blue Remove an account:}
+
+  {dim $} {bold devstats} remove <site> <username/user-id>
+  {grey {dim $} {bold devstats} remove stackoverflow 6662225}
 
   {dim $} {bold devstats} remove <url>
   {grey {dim $} {bold devstats} remove https://stackoverflow.com/users/6662225}
@@ -44,9 +50,9 @@ if (Boolean(args.help)) {
   const commandArgs = args._;
 
   if (command === 'add') {
-    add(typeof commandArgs[0] === 'string' ? commandArgs[0] : undefined);
+    add(commandArgs);
   } else if (command === 'remove') {
-    remove(typeof commandArgs[0] === 'string' ? commandArgs[0] : undefined);
+    remove(commandArgs);
   } else {
     console.log(chalk`{red The subcommand {bold ${command}} could not be found!}`);
     process.exit(1);

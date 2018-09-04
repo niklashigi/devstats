@@ -24,11 +24,13 @@ interface Response {
 const formatMoment = (moment: M.Moment) => moment.format('YYYY-MM-DD');
 
 export class WakaTimeAccount implements Account {
-  private username: string;
+  static aliases = ['wakatime', 'wt'];
 
-  constructor(url: string) {
-    this.username = parseSlashAccountUrl(url, 'wakatime.com');
+  static resolveUrlToId(url: string) {
+    return parseSlashAccountUrl(url, 'wakatime.com');
   }
+
+  constructor(private username: string) {}
 
   get canonicalUrl() {
     return `https://wakatime.com/@${this.username}`;
