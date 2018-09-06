@@ -1,1 +1,3 @@
-export type Report = number | string | null;
+import {Duration} from 'moment';
+
+export type Report = number | Duration | null;

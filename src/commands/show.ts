@@ -80,10 +80,23 @@ export default function show({interactive}: {interactive: boolean}) {
     }
   }
 
+  function formatDuration(duration: moment.Duration) {
+    return duration.asSeconds ? duration.humanize() : 'no time';
+  }
+
+  function parseReport(report: Report): string | undefined {
+    // tslint:disable-next-line:triple-equals
+    if (report == null) return;
+    if (moment.isDuration(report)) return formatDuration(report);
+    return String(report);
+  }
+
   function renderReport(account: Account, report: Report) {
     const accountType = getAccountType(account);
-    return report !== undefined && report !== null ?
-      chalk`{bold ${report + ''}} ${accountType.statistic}`
+    const parsedReport = parseReport(report);
+
+    return parsedReport ?
+      chalk`{bold ${parsedReport}} ${accountType.statistic}`
       : chalk.red('An error occurred.');
   }
 
