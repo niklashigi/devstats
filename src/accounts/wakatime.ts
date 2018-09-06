@@ -40,11 +40,11 @@ export class WakaTimeAccount implements Account {
   }
 
   apiKey: string | null | undefined;
-  durations: Map<number, string> = new Map();
+  durations: Map<number, M.Duration> = new Map();
 
   async getReport(day: number) {
     if (this.durations.has(day)) {
-      return this.durations.get(day) as string;
+      return this.durations.get(day)!;
     }
 
     this.apiKey = await this.findApiKey();
@@ -61,7 +61,7 @@ export class WakaTimeAccount implements Account {
     try {
       const response: Response = (await (await fetch(url)).json());
       const seconds = response.data[0].grand_total.total_seconds;
-      const duration = seconds > 0 ? M.duration(seconds, 'seconds').humanize() : 'no time';
+      const duration = M.duration(seconds, 'seconds');
       this.durations.set(day, duration);
 
       return duration;

@@ -7,6 +7,7 @@
     "no-require-imports": false,
     "curly": [true, "ignore-same-line"],
     "no-import-side-effect": false,
+    "no-non-null-assertion": false,
     "no-string-throw": false,
     "radix": false
   }
