@@ -8,12 +8,8 @@ import show from './commands/show';
 import add from './commands/add';
 import remove from './commands/remove';
 
-const args = gar(process.argv.slice(2)) as {
-  i?: boolean | string;
-  interactive?: boolean | string;
-  help?: boolean | string;
-  _: string[];
-};
+const args = gar(process.argv.slice(2));
+const positionalArgs = args._ as string[];
 
 if (Boolean(args.help)) {
   console.log(chalk`
@@ -43,11 +39,15 @@ if (Boolean(args.help)) {
   `);
 
   showUpdateNotification();
-} else if (args._.length === 0) {
-  show({interactive: Boolean(args.i || args.interactive)});
+} else if (positionalArgs.length === 0) {
+  show({
+    interactive: Boolean(args.i || args.interactive),
+    days: Number(args.d || args.days),
+    week: Boolean(args.w || args.week),
+  });
 } else {
-  const command = args._.shift() as string;
-  const commandArgs = args._;
+  const command = positionalArgs.shift() as string;
+  const commandArgs = positionalArgs;
 
   if (command === 'add') {
     add(commandArgs);

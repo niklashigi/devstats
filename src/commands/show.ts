@@ -3,14 +3,22 @@ import chalk from 'chalk';
 
 import * as Terminal from '../libs/terminal';
 import showUpdateNotification from '../libs/update-notifier';
-import {getDayIndex, parseDayIndex} from '../time';
 
 import getConfig from '../libs/config';
 import {Account} from '../accounts/account';
 import {Report} from '../report';
 import {resolveAccountUrl, getAccountType} from '../libs/accounts';
 
-export default function show({interactive}: {interactive: boolean}) {
+import DayReporter from '../reporters/day';
+import DaysReporter from '../reporters/days';
+import WeekReporter from '../reporters/week';
+
+export default function show(
+  {interactive, days, week}: {
+    interactive: boolean;
+    days?: number;
+    week: boolean;
+  }) {
   const accounts = getConfig().get('accounts').map(resolveAccountUrl);
 
   if (accounts.length === 0) {
@@ -32,11 +40,14 @@ export default function show({interactive}: {interactive: boolean}) {
     return;
   }
 
-  const todayIndex = getDayIndex(moment());
+  let index = 0;
+  let reportTitle: string;
 
-  let dayIndex = todayIndex;
-  let dayMoment = parseDayIndex(dayIndex);
-  let dayString = dayMoment.format('MMMM Do, YYYY');
+  const reporter = week ?
+    new WeekReporter()
+    : (days && days !== 1) ?
+      new DaysReporter(days)
+      : new DayReporter();
 
   const reports: Map<Account, Report> = new Map();
 
@@ -51,11 +62,11 @@ export default function show({interactive}: {interactive: boolean}) {
       } else if (key.startsWith('\u001b[') && key.length === 3) {
         if (key[2] === 'D') {
           // Left arrow key
-          dayIndex--;
+          index--;
           printDailyReport();
-        } else if (key[2] === 'C' && dayIndex < todayIndex) {
+        } else if (key[2] === 'C' && index < 0) {
           // Right arrow key
-          dayIndex++;
+          index++;
           printDailyReport();
         }
       }
@@ -63,21 +74,16 @@ export default function show({interactive}: {interactive: boolean}) {
   }
 
   function printDailyReport() {
-    dayMoment = parseDayIndex(dayIndex);
-    dayString = dayMoment.format('MMMM Do, YYYY');
-    const currentDayIndex = dayIndex;
-
     reports.clear();
+
+    const currentIndex = index;
+
+    reportTitle = reporter.report(index, accounts, (account, report) => {
+      if (currentIndex === index) reports.set(account, report);
+      render();
+    });
+
     render();
-
-    for (const account of accounts) {
-      account.getReport(currentDayIndex).then(report => {
-        if (currentDayIndex !== dayIndex) return;
-
-        reports.set(account, report);
-        render();
-      });
-    }
   }
 
   function formatDuration(duration: moment.Duration) {
@@ -102,7 +108,7 @@ export default function show({interactive}: {interactive: boolean}) {
 
   function render() {
     let output = '';
-    output += chalk`\n{blue   Daily report for {bold ${dayString}}}\n`;
+    output += chalk`\n{blue   ${reportTitle}}\n`;
     output += '\n';
     for (const account of accounts) {
       const {title, theme} = getAccountType(account);
@@ -115,7 +121,7 @@ export default function show({interactive}: {interactive: boolean}) {
     }
     if (interactive) {
       output += chalk`
-  {blue {dim [}{bold ←} Previous day{dim ]} ${(dayIndex < todayIndex ? chalk.blue : chalk.gray)(chalk`{dim [}{bold →} Next day{dim ]}`)} {dim [}{bold Q} Quit{dim ]}}
+  {blue {dim [}{bold ←} ${reporter.previousLabel}{dim ]} ${(index < 0 ? chalk.blue : chalk.gray)(chalk`{dim [}{bold →} ${reporter.nextLabel}{dim ]}`)} {dim [}{bold Q} Quit{dim ]}}
       `;
     }
     output += '\n';
