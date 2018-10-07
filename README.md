@@ -53,16 +53,30 @@ Display the daily report for the current day:
 
 $ devstats
 
+Display a summary of the current week:
+
+$ devstats -w or devstats --week
+
+Display a summary of the last <days> days:
+
+$ devstats -d <days> or devstats --days <days>
+
 Switch between days interactively:
 
 $ devstats -i or devstats --interactive
 
-Add a new account through its URL:
+Add an account:
+
+$ devstats add <site> <username/user-id>
+$ devstats add github shroudedcode
 
 $ devstats add <url>
 $ devstats add https://github.com/shroudedcode
 
-Remove an account through its URL:
+Remove an account:
+
+$ devstats remove <site> <username/user-id>
+$ devstats remove stackoverflow 6662225
 
 $ devstats remove <url>
 $ devstats remove https://stackoverflow.com/users/6662225
