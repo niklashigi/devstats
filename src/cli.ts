@@ -17,6 +17,14 @@ if (Boolean(args.help)) {
 
   {dim $} {bold devstats}
 
+  {blue Display a summary of the current week:}
+
+  {dim $} {bold devstats} -w {dim or} {bold devstats} --week
+
+  {blue Display a summary of the last {bold <days>} days:}
+
+  {dim $} {bold devstats} -d <days> {dim or} {bold devstats} --days <days>
+
   {blue Switch between days interactively:}
 
   {dim $} {bold devstats} -i {dim or} {bold devstats} --interactive
