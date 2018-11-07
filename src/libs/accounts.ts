@@ -8,6 +8,7 @@ import {WakaTimeAccount} from '../accounts/wakatime';
 import {GitLabAccount} from '../accounts/gitlab';
 import {ReverseEngineeringAccount} from '../accounts/stackexchange/reverseengineering';
 import {HackerRankAccount} from '../accounts/hackerrank';
+import {CodeStatsAccount} from '../accounts/codestats';
 
 export interface AccountType {
   new(url: string): Account;
@@ -25,6 +26,7 @@ const accountTypes = [
   GitLabAccount,
   ReverseEngineeringAccount,
   HackerRankAccount,
+  CodeStatsAccount
 ] as any as AccountType[];
 
 export function getAccountType(account: Account): AccountType {
