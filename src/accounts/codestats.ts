@@ -28,22 +28,20 @@ export class CodeStatsAccount implements Account {
 
   async getReport(day: number) {
     if (!this.dates.size) {
-        await this.fetchDates();
+      await this.fetchDates();
     }
 
     return this.dates.has(day) ? this.dates.get(day) as number : 0;
   }
 
   async fetchDates() {
-      console.log('Fetching dates');
-      try {
-        const userData = await (await fetch(`${BASE_URL}${this.username}`)).text();
-        const userDates = JSON.parse(userData).dates;
-        for (const date in userDates) {
-            this.dates.set(getDayIndex(M(date)), userDates[date]);
-        }
-      } catch {
-        return null;
+    try {
+      const userDates = (await (await fetch(`${BASE_URL}${this.username}`)).json()).dates;
+      for (const date in userDates) {
+        this.dates.set(getDayIndex(M(date)), userDates[date]);
       }
+    } catch {
+      return null;
+    }
   }
 }
