@@ -70,12 +70,17 @@ $ devstats remove https://stackoverflow.com/users/6662225
 
 ### Supported sites
 
-- GitHub
-- GitLab
-- StackOverflow
-- WakaTime
-- Hackerrank
-- Reverse Engineering SE
+This is a list of sites currently supported by devstats. You can add your account using the name in parentheses.
+
+- [GitHub](https://github.com) (`github`)
+- [GitLab](https://gitlab.com) (`gitlab`)
+- [StackOverflow](https://stackoverflow.com) (`stackoverflow`)
+- [WakaTime](https://wakatime.com) (`wakatime`)
+- [Hackerrank](https://hackerrank.com) (`hackerrank`)
+- [Reverse Engineering SE](https://reverseengineering.stackexchange.com) (`reverseengineering`)
+- [Code::Stats](https://codestats.net) (`codestats`)
+
+Your favorite site is not on the list? Feel free to add support yourself and open a pull request.
 
 ## License
 
