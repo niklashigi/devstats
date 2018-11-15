@@ -95,7 +95,7 @@ export default function show({interactive}: {interactive: boolean}) {
       const {title, theme} = getAccountType(account);
       if (reports.has(account)) {
         const report = reports.get(account) as Report;
-        output += chalk`  {inverse ${theme(' ')}} ${theme(title.padEnd(15))}${renderReport(account, report)}\n`;
+        output += chalk`  {inverse ${theme(' ')}}${chalk.reset(' ')}${theme(title.padEnd(15))}${renderReport(account, report)}\n`;
       } else {
         output += chalk`  {gray.inverse  } {gray.dim ${title.padEnd(15)}}{dim Loading ...}\n`;
       }
