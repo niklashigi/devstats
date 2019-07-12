@@ -6,7 +6,7 @@
 
 [![][npm-badge]][npm-link]
 
-DevStats is a CLI application written in TypeScript that fetches statistics from "developer sites" like StackOverflow, WakaTime and GitHub and displays them nicely.
+**devstats** is a CLI application written in TypeScript that fetches statistics from developer sites like StackOverflow, WakaTime, and GitHub and displays them nicely.
 
 ## Installation
 
