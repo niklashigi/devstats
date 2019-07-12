@@ -1,5 +1,5 @@
 {
-  "extends": ["tslint-xo/space"],
+  "extends": [],
   "rules": {
     "quotemark": [true, "single", "avoid-escape"],
     "only-arrow-functions": false,
