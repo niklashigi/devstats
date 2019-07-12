@@ -4,9 +4,7 @@
 
 > A CLI application that fetches stats from developer sites.
 
-
-[![](https://img.shields.io/npm/v/devstats.svg)](https://www.npmjs.com/package/devstats)
-
+[![][npm-badge]][npm-link]
 
 DevStats is a CLI application written in TypeScript that fetches statistics from "developer sites" like StackOverflow, WakaTime and GitHub and displays them nicely.
 
@@ -99,3 +97,6 @@ Your favorite site is not on the list? Feel free to add support yourself and ope
 ## License
 
 MIT © [Niklas Higi](https://shroudedcode.com)
+
+[npm-link]: https://www.npmjs.com/package/devstats
+[npm-badge]: https://img.shields.io/npm/v/devstats.svg?style=flat-square
