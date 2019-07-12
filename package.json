@@ -12,6 +12,7 @@
     "devstats": "bin/devstats"
   },
   "scripts": {
+    "test": "true",
     "build": "tsc",
     "watch": "tsc -w",
     "release": "rm -rf dist && tsc --sourceMap false && np"
