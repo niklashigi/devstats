@@ -1,28 +1,30 @@
-import * as moment from 'moment';
-import chalk from 'chalk';
+import chalk from 'chalk'
+import * as moment from 'moment'
 
-import {Reporter} from './reporter';
-import {Report} from '../report';
-import {Account} from '../accounts/account';
-import {getDayIndex, parseDayIndex} from '../time';
+import { Account } from '../accounts/account'
+import { Report } from '../report'
+import { getDayIndex, parseDayIndex } from '../time'
+import { Reporter } from './reporter'
 
 export default class DayReporter implements Reporter {
-  previousLabel = 'Previous day';
-  nextLabel = 'Next day';
 
-  todayIndex = getDayIndex(moment());
+  public previousLabel = 'Previous day'
+  public nextLabel = 'Next day'
 
-  report(
+  public todayIndex = getDayIndex(moment())
+
+  public report(
     index: number, accounts: Account[],
-    cb: (account: Account, report: Report) => void
+    cb: (account: Account, report: Report) => void,
   ) {
-    const dayIndex = this.todayIndex + index;
+    const dayIndex = this.todayIndex + index
 
     for (const account of accounts) {
-      account.getReport(this.todayIndex + index).then(report => cb(account, report));
+      account.getReport(this.todayIndex + index).then(report => cb(account, report))
     }
 
-    const dayString = parseDayIndex(dayIndex).format('MMMM Do, YYYY');
-    return chalk`Daily report for {bold ${dayString}}`;
+    const dayString = parseDayIndex(dayIndex).format('MMMM Do, YYYY')
+    return chalk`Daily report for {bold ${dayString}}`
   }
+
 }

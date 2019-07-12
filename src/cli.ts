@@ -1,15 +1,15 @@
-import gar = require('gar');
-import chalk from 'chalk';
+import chalk from 'chalk'
+import gar = require('gar')
 
-import './libs/handle-errors';
-import showUpdateNotification from './libs/update-notifier';
+import './libs/handle-errors'
+import showUpdateNotification from './libs/update-notifier'
 
-import show from './commands/show';
-import add from './commands/add';
-import remove from './commands/remove';
+import add from './commands/add'
+import remove from './commands/remove'
+import show from './commands/show'
 
-const args = gar(process.argv.slice(2));
-const positionalArgs = args._ as string[];
+const args = gar(process.argv.slice(2))
+const positionalArgs = args._ as string[]
 
 if (Boolean(args.help)) {
   console.log(chalk`
@@ -44,25 +44,25 @@ if (Boolean(args.help)) {
 
   {dim $} {bold devstats} remove <url>
   {grey {dim $} {bold devstats} remove https://stackoverflow.com/users/6662225}
-  `);
+  `)
 
-  showUpdateNotification();
+  showUpdateNotification()
 } else if (positionalArgs.length === 0) {
   show({
     interactive: Boolean(args.i || args.interactive),
     days: Number(args.d || args.days),
     week: Boolean(args.w || args.week),
-  });
+  })
 } else {
-  const command = positionalArgs.shift() as string;
-  const commandArgs = positionalArgs;
+  const command = positionalArgs.shift() as string
+  const commandArgs = positionalArgs
 
   if (command === 'add') {
-    add(commandArgs);
+    add(commandArgs)
   } else if (command === 'remove') {
-    remove(commandArgs);
+    remove(commandArgs)
   } else {
-    console.log(chalk`{red The subcommand {bold ${command}} could not be found!}`);
-    process.exit(1);
+    console.log(chalk`{red The subcommand {bold ${command}} could not be found!}`)
+    process.exit(1)
   }
 }

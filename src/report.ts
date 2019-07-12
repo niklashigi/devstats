@@ -1,3 +1,3 @@
-import {Duration} from 'moment';
+import { Duration } from 'moment'
 
-export type Report = number | Duration | null;
+export type Report = number | Duration | null

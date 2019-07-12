@@ -1,14 +1,15 @@
 {
-  "extends": [],
+  "extends": ["tslint:recommended"],
   "rules": {
     "quotemark": [true, "single", "avoid-escape"],
-    "only-arrow-functions": false,
-    "no-unused-expression": false,
-    "no-require-imports": false,
     "curly": [true, "ignore-same-line"],
-    "no-import-side-effect": false,
-    "no-non-null-assertion": false,
+    "arrow-parens": [true, "ban-single-arg-parens"],
     "no-string-throw": false,
-    "radix": false
+    "object-literal-sort-keys": false,
+    "interface-name": false,
+    "forin": false,
+    "no-console": false,
+    "member-ordering": false,
+    "semicolon": [true, "never"]
   }
 }

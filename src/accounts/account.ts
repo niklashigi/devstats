@@ -1,6 +1,6 @@
-import {Report} from '../report';
+import { Report } from '../report'
 
 export interface Account {
-  getReport(day: number): Promise<Report>;
-  canonicalUrl: string;
+  canonicalUrl: string
+  getReport(day: number): Promise<Report>
 }

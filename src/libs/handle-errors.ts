@@ -1,11 +1,11 @@
-import chalk from 'chalk';
+import chalk from 'chalk'
 
 function handleError(error: Error) {
   console.log(chalk`
   {red ${String(error)}}
-`);
-  process.exit(1);
+`)
+  process.exit(1)
 }
 
-process.on('uncaughtException', handleError);
-process.on('unhandledRejection', handleError);
+process.on('uncaughtException', handleError)
+process.on('unhandledRejection', handleError)
