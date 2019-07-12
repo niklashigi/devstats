@@ -18,29 +18,29 @@
     "release": "rm -rf dist; tsc --sourceMap false; np"
   },
   "devDependencies": {
-    "@types/conf": "^1.4.0",
-    "@types/fs-extra": "^5.0.4",
+    "@types/conf": "^3.0.0",
+    "@types/fs-extra": "^8.0.0",
     "@types/jsdom": "^12.2.0",
     "@types/node": "^10.9.4",
     "@types/node-fetch": "^2.1.2",
     "@types/query-string": "^6.1.0",
     "@types/update-notifier": "^2.2.0",
-    "@types/yargs": "^12.0.1",
-    "np": "^3.0.4",
-    "ts-loader": "^5.3.0",
+    "@types/yargs": "^13.0.0",
+    "np": "^5.0.3",
+    "ts-loader": "^6.0.4",
     "tslint": "^5.11.0",
-    "tslint-xo": "^0.9.0",
+    "tslint-xo": "0.9.0",
     "typescript": "^3.0.3"
   },
   "dependencies": {
     "chalk": "^2.4.1",
-    "conf": "^2.0.0",
-    "fs-extra": "^7.0.0",
+    "conf": "^5.0.0",
+    "fs-extra": "^8.1.0",
     "gar": "^1.0.3",
-    "jsdom": "^13.0.0",
+    "jsdom": "^15.0.0",
     "moment": "^2.22.2",
     "node-fetch": "^2.2.0",
     "query-string": "^6.1.0",
-    "update-notifier": "^2.5.0"
+    "update-notifier": "^3.0.1"
   }
 }
