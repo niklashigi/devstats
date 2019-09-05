@@ -1,6 +1,6 @@
 import chalk from 'chalk'
 
-function handleError(error: Error) {
+function handleError(error: any) {
   console.log(chalk`
   {red ${String(error)}}
 `)
