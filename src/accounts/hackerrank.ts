@@ -32,7 +32,10 @@ export class HackerRankAccount implements Account {
       try {
         const url = `${BASE_URL}/rest/hackers/${this.username}/submission_histories`
 
-        const contributions = await (await fetch(url)).json()
+        const contributions = await (await fetch(url, {
+          // node-fetch's default user agent causes a 403 error
+          headers: { 'User-Agent': '' },
+        })).json()
 
         for (const contributionDate of Object.keys(contributions)) {
           const contributionDay = getDayIndex(M(contributionDate))
