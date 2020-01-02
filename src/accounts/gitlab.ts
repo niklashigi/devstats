@@ -1,4 +1,4 @@
-import chalk from 'chalk'
+import chalk = require('chalk')
 import * as M from 'moment'
 import fetch from 'node-fetch'
 

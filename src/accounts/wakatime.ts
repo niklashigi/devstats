@@ -2,7 +2,7 @@ import * as fs from 'fs-extra'
 import * as os from 'os'
 import * as path from 'path'
 
-import chalk from 'chalk'
+import chalk = require('chalk')
 import * as M from 'moment'
 import fetch from 'node-fetch'
 import { stringify as querify } from 'query-string'

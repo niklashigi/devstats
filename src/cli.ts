@@ -1,4 +1,4 @@
-import chalk from 'chalk'
+import chalk = require('chalk')
 import gar = require('gar')
 
 import './libs/handle-errors'

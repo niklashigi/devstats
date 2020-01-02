@@ -1,4 +1,4 @@
-import chalk from 'chalk'
+import chalk = require('chalk')
 import * as moment from 'moment'
 
 import { Account } from '../accounts/account'

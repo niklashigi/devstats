@@ -1,4 +1,4 @@
-import chalk from 'chalk'
+import chalk = require('chalk')
 
 import { parseAccountUrl } from '../../libs/urls'
 import { Account } from '../account'

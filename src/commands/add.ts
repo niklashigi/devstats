@@ -1,4 +1,4 @@
-import chalk from 'chalk'
+import chalk = require('chalk')
 
 import { resolveAccountArguments } from '../libs/accounts'
 import getConfig from '../libs/config'

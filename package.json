@@ -18,28 +18,26 @@
     "release": "rm -rf dist && tsc --sourceMap false && np"
   },
   "dependencies": {
-    "chalk": "^2.4.1",
-    "conf": "^5.0.0",
+    "chalk": "^3.0.0",
+    "conf": "^6.2.0",
     "fs-extra": "^8.1.0",
     "gar": "^1.0.3",
-    "jsdom": "^15.0.0",
+    "jsdom": "^15.2.1",
     "moment": "^2.22.2",
     "node-fetch": "^2.2.0",
-    "query-string": "^6.8.3",
-    "update-notifier": "^3.0.1"
+    "query-string": "^6.9.0",
+    "update-notifier": "^4.0.0"
   },
   "devDependencies": {
-    "@types/conf": "^3.0.0",
-    "@types/fs-extra": "^8.0.0",
+    "@types/fs-extra": "^8.0.1",
     "@types/jsdom": "^12.2.0",
     "@types/node": "^10.9.4",
-    "@types/node-fetch": "^2.5.0",
-    "@types/query-string": "^6.1.0",
+    "@types/node-fetch": "^2.5.4",
     "@types/update-notifier": "^2.2.0",
-    "@types/yargs": "^13.0.2",
-    "np": "^5.0.3",
-    "ts-loader": "^6.0.4",
-    "tslint": "^5.19.0",
-    "typescript": "^3.6.2"
+    "@types/yargs": "^13.0.4",
+    "np": "^5.2.1",
+    "ts-loader": "^6.2.1",
+    "tslint": "^5.20.1",
+    "typescript": "^3.7.4"
   }
 }
