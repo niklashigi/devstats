@@ -6,9 +6,7 @@ import { parseDayIndex } from '../time'
 const BASE_URL = 'https://api.stackexchange.com/2.2'
 
 interface Response {
-  items: Array<{
-    reputation_change?: number,
-  }>
+  items: { reputation_change?: number }[]
 }
 
 export abstract class StackExchangeAccount {

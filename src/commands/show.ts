@@ -87,7 +87,7 @@ export default function show(
   }
 
   function formatDuration(duration: moment.Duration) {
-    return duration.asSeconds ? duration.humanize() : 'no time'
+    return duration.asSeconds() > 0 ? duration.humanize() : 'no time'
   }
 
   function parseReport(report: Report): string | undefined {

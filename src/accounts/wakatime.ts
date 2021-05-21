@@ -14,11 +14,9 @@ import { Account } from './account'
 const BASE_URL = 'https://wakatime.com/api/v1'
 
 interface Response {
-  data: Array<{
-    grand_total: {
-      total_seconds: number,
-    },
-  }>
+  data: {
+    grand_total: { total_seconds: number }
+  }[]
 }
 
 const formatMoment = (moment: M.Moment) => moment.format('YYYY-MM-DD')

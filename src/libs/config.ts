@@ -1,4 +1,4 @@
-import Conf = require('conf')
+import Conf from 'conf'
 
 export default function getConfig() {
   return new Conf<StoreType>({
