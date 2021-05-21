@@ -1,6 +1,6 @@
 {
   "name": "devstats",
-  "version": "1.3.2",
+  "version": "2.0.0",
   "description": "A CLI application that fetches stats from developer sites.",
   "author": "Niklas Higi <niklas@shroudedcode.com> (https://shroudedcode.com/)",
   "license": "MIT",
