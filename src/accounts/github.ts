@@ -1,6 +1,6 @@
 import chalk = require('chalk')
 import { JSDOM } from 'jsdom'
-import * as M from 'moment'
+import * as Moment from 'moment'
 import fetch from 'node-fetch'
 
 import { parseAccountUrl } from '../libs/urls'
@@ -34,10 +34,10 @@ export class GitHubAccount implements Account {
         const html = await (await fetch(`${BASE_URL}/${this.username}`)).text()
         const document = new JSDOM(html).window.document
 
-        for (const dayElement of Array.from(document.querySelectorAll('.day'))) {
+        for (const dayElement of Array.from(document.querySelectorAll('.ContributionCalendar-day[data-date]'))) {
           this.contributions.set(
-            getDayIndex(M((dayElement.getAttribute('data-date') as string).trim())),
-            parseInt(dayElement.getAttribute('data-count') as string, 10),
+            getDayIndex(Moment(dayElement.getAttribute('data-date')!)),
+            parseInt(dayElement.getAttribute('data-count')!, 10),
           )
         }
       } catch {
